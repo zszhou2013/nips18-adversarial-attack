@@ -8,12 +8,16 @@ model_names = [ 'resnet50', 'se_resnet50', 'se_resnext50_32x4d']
 
 class WrapperModel(nn.Module):
     
-    def __init__(self, base_model_name):
+    def __init__(self, base_model_name, pretrained=True):
         super(WrapperModel, self).__init__()
         
         assert(base_model_name in model_names)
         
-        base_model = pretrainedmodels.__dict__[base_model_name](pretrained='imagenet')
+        if pretrained:
+            base_model = pretrainedmodels.__dict__[base_model_name](pretrained='imagenet')
+        else:
+            base_model = pretrainedmodels.__dict__[base_model_name]()
+            
         
         self.features = nn.Sequential(*list(base_model.children())[:-2])        
         

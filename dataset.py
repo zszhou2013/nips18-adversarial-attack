@@ -37,7 +37,7 @@ class TinyTrainset(Dataset):
         return len(self.images)
     
     def __getitem__(self, index):        
-        image = Image.open(self.images[index])
+        image = Image.open(self.images[index]).convert('RGB')
         label_idx = self.idxs[index]
         
         if self.transform is not None:
@@ -65,7 +65,7 @@ class TinyValset(Dataset):
         return len(self.images)
     
     def __getitem__(self, index):        
-        image = Image.open(os.path.join(self.root, self.images[index]))
+        image = Image.open(os.path.join(self.root, self.images[index])).convert('RGB')
         label_idx = self.idxs[index]
         
         if self.transform is not None:
