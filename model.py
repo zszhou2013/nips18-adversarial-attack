@@ -3,7 +3,7 @@ import torch.nn as nn
 import pretrainedmodels
 
 # current supported models
-model_names = [ 'resnet50', 'se_resnet50', 'se_resnext50_32x4d']
+model_names = ['densenet','resnet18', 'resnet50', 'se_resnet50', 'se_resnext50_32x4d']
 
 
 class WrapperModel(nn.Module):
@@ -16,7 +16,7 @@ class WrapperModel(nn.Module):
         if pretrained:
             base_model = pretrainedmodels.__dict__[base_model_name](pretrained='imagenet')
         else:
-            base_model = pretrainedmodels.__dict__[base_model_name]()
+            base_model = pretrainedmodels.__dict__[base_model_name](pretrained=None)
             
         
         self.features = nn.Sequential(*list(base_model.children())[:-2])        
